@@ -1,7 +1,10 @@
 package com.stLSSTl.asciicanvas.service;
 
 import com.github.lalyos.jfiglet.FigletFont;
+
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,11 +15,8 @@ public class AsciiArtService {
 
     static {
         FONT_MAP.put("standard", "standard");
-        FONT_MAP.put("banner", "banner");
-        FONT_MAP.put("big", "big");
-        FONT_MAP.put("digital", "digital");
-        FONT_MAP.put("script", "script");
-        FONT_MAP.put("block", "block");
+        FONT_MAP.put("larry3d", "larry3d.flf");
+        FONT_MAP.put("doh", "doh.flf");
     }
 
     /**
@@ -25,8 +25,17 @@ public class AsciiArtService {
     public static String generateAsciiArt(String text, String font) {
         try {
             String fontName = FONT_MAP.getOrDefault(font.toLowerCase(), "standard");
-            String asciiArt = FigletFont.convertOneLine(text);
-            return decorateAsciiArt(asciiArt);
+            // 使用类路径资源加载字体文件
+            InputStream fontStream = AsciiArtService.class.getClassLoader()
+                    .getResourceAsStream("fonts/" + fontName);
+            if (fontStream != null) {
+                String asciiArt = FigletFont.convertOneLine(fontStream, text);
+                return decorateAsciiArt(asciiArt);
+            } else {
+                // 如果字体文件不存在，使用默认字体
+                String asciiArt = FigletFont.convertOneLine(text);
+                return decorateAsciiArt(asciiArt);
+            }
         } catch (IOException e) {
             return generateSimpleAscii(text);
         }

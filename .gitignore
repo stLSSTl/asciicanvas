@@ -38,3 +38,6 @@ build/
 mvnw.cmd
 mvnw
 .gitattributes
+
+src/test
+src/main/java/com/stLSSTl/asciicanvas/TodoTasks.java

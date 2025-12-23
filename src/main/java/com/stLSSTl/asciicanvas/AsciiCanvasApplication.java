@@ -9,5 +9,4 @@ public class AsciiCanvasApplication {
     public static void main(String[] args) {
         SpringApplication.run(AsciiCanvasApplication.class, args);
     }
-
 }
