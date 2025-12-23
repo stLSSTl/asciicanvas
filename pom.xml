@@ -7,7 +7,7 @@
 
     <groupId>com.stlsstl</groupId>
     <artifactId>asciicanvas</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>AsciiCanvas</name>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version> <!-- 推荐使用最新稳定版 -->
+            <version>1.18.36</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
