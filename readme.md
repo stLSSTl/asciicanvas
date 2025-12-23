@@ -40,7 +40,7 @@ mvn install
 <dependency>
     <groupId>com.stlsstl</groupId>
     <artifactId>asciicanvas</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
@@ -48,11 +48,14 @@ mvn install
 
 ## 🔧使用方法
 
-在启动类上加上@ascii注解，参数为content = "自定义内容"
+在启动类上加上@ascii注解，参数如下：
+
+- content = "自定义内容"
+- font = “字体样式” ，1.0.4版本支持**standard、doh、larry3d** 三种样式
 
 ```java
 @SpringBootApplication
-@Ascii(content = "hello world")// 在此设置您的自定义内容
+@Ascii(content = "hello world",font = "doh")// 在此设置您的自定义
 public class SpringbootTestApplication {
 
     public static void main(String[] args) {
@@ -96,6 +99,25 @@ public class SpringbootTestApplication {
 
 
 ```
+
+
+
+## 📔版本日志
+
+| 版本  | 说明                               |
+| ----- | ---------------------------------- |
+| 1.0.3 | 以标准模式输出ascii艺术字          |
+| 1.0.4 | 新增两种艺术字字体，larry3d 和 doh |
+
+
+
+## 📝备注
+
+本项目基于**JFiglet：Java版FIGlet艺术字生成库**实现。
+
+本项目所涉及的字体文件来源于：**https://www.figlet.org/**
+
+
 
 ## 📮邮箱
 
