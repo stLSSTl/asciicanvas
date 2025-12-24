@@ -40,7 +40,7 @@ mvn install
 <dependency>
     <groupId>com.stlsstl</groupId>
     <artifactId>asciicanvas</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -51,7 +51,7 @@ mvn install
 在启动类上加上@ascii注解，参数如下：
 
 - content = "自定义内容"
-- font = “字体样式” ，1.0.4版本支持**standard、doh、larry3d** 三种样式
+- font = “字体样式” ，1.0.5版本支持**standard、doh、larry3d** 三种样式
 - border = "边框样式" 一共有7种
   - BorderEnums.THIN --------->细边框
   - BorderEnums.DOUBLE--------->加粗边框
@@ -112,10 +112,11 @@ public class SpringbootTestApplication {
 
 ## 📔版本日志
 
-| 版本  | 说明                               |
-| ----- | ---------------------------------- |
-| 1.0.3 | 以标准模式输出ascii艺术字          |
+| 版本    | 说明        |
+|-------|-----------|
+| 1.0.3 | 以标准模式输出ascii艺术字 |
 | 1.0.4 | 新增两种艺术字字体，larry3d 和 doh |
+| 1.0.5 | 新增七种边框样式  |
 
 
 
