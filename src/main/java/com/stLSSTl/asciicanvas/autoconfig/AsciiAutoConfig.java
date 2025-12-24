@@ -1,5 +1,6 @@
 package com.stLSSTl.asciicanvas.autoconfig;
 import com.stLSSTl.asciicanvas.annotation.Ascii;
+import com.stLSSTl.asciicanvas.enums.BorderEnums;
 import com.stLSSTl.asciicanvas.service.AsciiArtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Configuration
@@ -30,7 +32,7 @@ public class AsciiAutoConfig {
      * 定义一个事件监听器，监听ApplicationReadyEvent 事件，即Spring Boot应用完全启动并准备接收请求时触发
      */
     @EventListener(ApplicationReadyEvent.class)
-    public void printAsciiArtOnStartup() {
+    public void printAsciiArtOnStartup() throws IOException, NoSuchFieldException {
         //检查功能是否启用
         if (!asciiProperties.isEnabled()) {
             return;
@@ -38,6 +40,7 @@ public class AsciiAutoConfig {
 
         String content = asciiProperties.getContent();
         String font = asciiProperties.getFont();
+        BorderEnums border = asciiProperties.getBorder();
 
         // 检查是否有@Ascii注解，如果有则覆盖配置
         //从Spring应用上下文中获取所有带有 @Ascii 注解的Bean，返回一个Map(spring容器Bean的名称 -> Bean实例对象)
@@ -57,7 +60,7 @@ public class AsciiAutoConfig {
         }
 
         // 使用静态方法生成ASCII艺术字
-        String asciiArt = AsciiArtService.generateAsciiArt(content, font);
+        String asciiArt = AsciiArtService.generateAsciiArt(content, font, border);
         log.info("\n{}", asciiArt);
         log.info("✅Spring Boot Application Started Successfully!");
         log.info("==============================================\n");

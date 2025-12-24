@@ -52,10 +52,18 @@ mvn install
 
 - content = "自定义内容"
 - font = “字体样式” ，1.0.4版本支持**standard、doh、larry3d** 三种样式
+- border = "边框样式" 一共有7种
+  - BorderEnums.THIN --------->细边框
+  - BorderEnums.DOUBLE--------->加粗边框
+  - BorderEnums.BLOCK--------->实行块
+  - BorderEnums.ROUNDED--------->圆角边框
+  - BorderEnums.BOLD--------->粗线边框
+  - BorderEnums.STAR--------->星星边框
+  - BorderEnums.UNENABLED--------->不启用边框
 
 ```java
 @SpringBootApplication
-@Ascii(content = "hello world",font = "doh")// 在此设置您的自定义
+@Ascii(content = "hello world",font = "doh",border = BorderEnums.THIN)// 在此设置您的自定义
 public class SpringbootTestApplication {
 
     public static void main(String[] args) {
