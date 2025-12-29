@@ -1,4 +1,4 @@
-package com.stLSSTl.asciicanvas.autoconfig;
+package com.stLSSTl.asciicanvas.autoconfig.Ascii;
 
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
 import com.stLSSTl.asciicanvas.enums.ColorEnums;
@@ -14,7 +14,7 @@ public class AsciiProperties {
      */
     @Getter
     @Setter
-    private String content = "Spring Boot";
+    private String content = "Ascii Canvas";
 
     /**
      * 字体类型

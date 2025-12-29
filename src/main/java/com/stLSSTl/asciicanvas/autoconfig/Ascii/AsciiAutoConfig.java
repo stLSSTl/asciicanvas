@@ -1,4 +1,5 @@
-package com.stLSSTl.asciicanvas.autoconfig;
+package com.stLSSTl.asciicanvas.autoconfig.Ascii;
+
 import com.stLSSTl.asciicanvas.annotation.Ascii;
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
 import com.stLSSTl.asciicanvas.enums.ColorEnums;
@@ -12,6 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -29,12 +31,9 @@ public class AsciiAutoConfig {
     @Autowired
     private ApplicationContext applicationContext;
 
-    /**
-     * 定义一个事件监听器，监听ApplicationReadyEvent 事件，即Spring Boot应用完全启动并准备接收请求时触发
-     */
     @EventListener(ApplicationReadyEvent.class)
-    public void printAsciiArtOnStartup() throws IOException, NoSuchFieldException {
-        //检查功能是否启用
+    public void printAsciiArtOnStartup() {
+        // 检查功能是否启用
         if (!asciiProperties.isEnabled()) {
             return;
         }
@@ -44,36 +43,50 @@ public class AsciiAutoConfig {
         BorderEnums border = asciiProperties.getBorder();
         ColorEnums color = asciiProperties.getColor();
 
-        // 检查是否有@Ascii注解，如果有则覆盖配置
-        //从Spring应用上下文中获取所有带有 @Ascii 注解的Bean，返回一个Map(spring容器Bean的名称 -> Bean实例对象)
+        boolean hasAsciiAnnotation = false;
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(Ascii.class);
+
         for (Object bean : beansWithAnnotation.values()) {
-            Class<?> beanClass = bean.getClass();
-            Ascii asciiAnnotation = beanClass.getAnnotation(Ascii.class);
+            // 获取Bean原始类（跳过Spring代理类），核心修复点
+            Class<?> originalClass = ClassUtils.getUserClass(bean);
+            Ascii asciiAnnotation = originalClass.getAnnotation(Ascii.class);
+
             if (asciiAnnotation != null) {
-                //如果注解中设置了 content 参数且不为空，则使用注解中的内容
-                if (!asciiAnnotation.content().isEmpty()) {
-                    content = asciiAnnotation.content();
-                }
-                if (!asciiAnnotation.font().isEmpty()) {
-                    font = asciiAnnotation.font();
-                }
-                // 对边框进行处理
-                if (asciiAnnotation.border() != BorderEnums.UNENABLED) {
-                    border = asciiAnnotation.border();
-                }
-                // 新增颜色处理
-                if (asciiAnnotation.color() != ColorEnums.DEFAULT) {
-                    color = asciiAnnotation.color();
-                }
+                // 覆盖配置文件属性
+                content = !asciiAnnotation.content().isEmpty()
+                        ? asciiAnnotation.content()
+                        : content;
+
+                font = !asciiAnnotation.font().isEmpty()
+                        ? asciiAnnotation.font()
+                        : font;
+
+                border = asciiAnnotation.border() != BorderEnums.UNENABLED
+                        ? asciiAnnotation.border()
+                        : border;
+
+                color = asciiAnnotation.color() != ColorEnums.DEFAULT
+                        ? asciiAnnotation.color()
+                        : color;
+
+                hasAsciiAnnotation = true;
                 break;
             }
         }
 
-        // 使用静态方法生成ASCII艺术字
-        String asciiArt = AsciiArtService.generateAsciiArt(content, font, border,color);
-        log.info("\n{}", asciiArt);
-        log.info("✅Spring Boot Application Started Successfully!");
-        log.info("==============================================\n");
+        if (!hasAsciiAnnotation) {
+            return;
+        }
+
+        // 捕获异常，避免方法中断（无日志输出）
+        try {
+            String asciiArt = AsciiArtService.generateAsciiArt(content, font, border, color);
+            // 仅保留核心ASCII打印和成功提示
+            log.info("\n{}", asciiArt);
+            log.info("✅Ascii Art Word Printed Successfully!");
+            log.info("==============================================\n");
+        } catch (IOException | NoSuchFieldException e) {
+            // 异常静默处理（无日志输出）
+        }
     }
 }
