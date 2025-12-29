@@ -40,7 +40,7 @@ mvn install
 <dependency>
     <groupId>com.stlsstl</groupId>
     <artifactId>asciicanvas</artifactId>
-    <version>1.0.5</version>
+    <version>请查看版本日志</version>
 </dependency>
 ```
 
@@ -53,17 +53,26 @@ mvn install
 - content = "自定义内容"
 - font = “字体样式” ，1.0.5版本支持**standard、doh、larry3d** 三种样式
 - border = "边框样式" 一共有7种
-  - BorderEnums.THIN --------->细边框
-  - BorderEnums.DOUBLE--------->加粗边框
-  - BorderEnums.BLOCK--------->实行块
-  - BorderEnums.ROUNDED--------->圆角边框
-  - BorderEnums.BOLD--------->粗线边框
-  - BorderEnums.STAR--------->星星边框
-  - BorderEnums.UNENABLED--------->不启用边框
+    - BorderEnums.THIN --------->细边框
+    - BorderEnums.DOUBLE--------->加粗边框
+    - BorderEnums.BLOCK--------->实行块
+    - BorderEnums.ROUNDED--------->圆角边框
+    - BorderEnums.BOLD--------->粗线边框
+    - BorderEnums.STAR--------->星星边框
+    - BorderEnums.UNENABLED--------->不启用边框
+- color = “颜色样式”，与border一致，使用枚举类，例如：
+    - ColorEnums.BLUE
+    - ColorEnums.RED
+    - ColorEnums.YELLOW
+
+
+
+还可以在启动类上加上@Buddha注解，在控制台上生成**赛博佛祖**
 
 ```java
 @SpringBootApplication
-@Ascii(content = "hello world",font = "doh",border = BorderEnums.THIN)// 在此设置您的自定义
+@Ascii(content = "SHR1NK" ,font = "larry3d",border = BorderEnums.BOLD,color = ColorEnums.BLUE)
+@Buddha
 public class SpringbootTestApplication {
 
     public static void main(String[] args) {
@@ -89,23 +98,61 @@ public class SpringbootTestApplication {
 
  :: Spring Boot ::                (v4.0.1)
 
-2025-12-22T23:00:54.579+08:00  INFO 14422 --- [springbootTest] [           main] c.s.s.SpringbootTestApplication          : Starting SpringbootTestApplication using Java 17.0.15 with PID 14422 
-2025-12-22T23:00:54.581+08:00  INFO 14422 --- [springbootTest] [           main] c.s.s.SpringbootTestApplication          : No active profile set, falling back to 1 default profile: "default"
-2025-12-22T23:00:54.712+08:00  INFO 14422 --- [springbootTest] [           main] c.s.s.SpringbootTestApplication          : Started SpringbootTestApplication in 0.258 seconds (process running for 0.413)
-2025-12-22T23:00:54.715+08:00  INFO 14422 --- [springbootTest] [           main] c.s.a.autoconfig.AsciiAutoConfig         : 
-╔═════════════════════════════════════════════════════════════════════════╗
-║   _              _   _                                       _       _  ║
-║  | |__     ___  | | | |   ___     __      __   ___    _ __  | |   __| | ║
-║  | '_ \   / _ \ | | | |  / _ \    \ \ /\ / /  / _ \  | '__| | |  / _` | ║
-║  | | | | |  __/ | | | | | (_) |    \ V  V /  | (_) | | |    | | | (_| | ║
-║  |_| |_|  \___| |_| |_|  \___/      \_/\_/    \___/  |_|    |_|  \__,_| ║
-║                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════╝
+2025-12-29T23:41:04.839+08:00  INFO 12307 --- [springbootTest] [           main] c.s.s.SpringbootTestApplication          : Starting SpringbootTestApplication using Java 17.0.15 with PID 12307  started by shr1nk in springbootTest)
+2025-12-29T23:41:04.841+08:00  INFO 12307 --- [springbootTest] [           main] c.s.s.SpringbootTestApplication          : No active profile set, falling back to 1 default profile: "default"
+2025-12-29T23:41:05.003+08:00  INFO 12307 --- [springbootTest] [           main] c.s.s.SpringbootTestApplication          : Started SpringbootTestApplication in 0.296 seconds (process running for 0.677)
+2025-12-29T23:41:05.007+08:00  INFO 12307 --- [springbootTest] [           main] c.s.a.autoconfig.Ascii.AsciiAutoConfig   : 
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ____        __  __      ____          _      __  __      __  __     ┃
+┃/\  _`\     /\ \/\ \    /\  _`\      /' \    /\ \/\ \    /\ \/\ \    ┃
+┃\ \,\L\_\   \ \ \_\ \   \ \ \L\ \   /\_, \   \ \ `\\ \   \ \ \/'/'   ┃
+┃ \/_\__ \    \ \  _  \   \ \ ,  /   \/_/\ \   \ \ , ` \   \ \ , <    ┃
+┃   /\ \L\ \   \ \ \ \ \   \ \ \\ \     \ \ \   \ \ \`\ \   \ \ \\`\  ┃
+┃   \ `\____\   \ \_\ \_\   \ \_\ \_\    \ \_\   \ \_\ \_\   \ \_\ \_\┃
+┃    \/_____/    \/_/\/_/    \/_/\/ /     \/_/    \/_/\/_/    \/_/\/_/┃
+┃                                                                     ┃
+┃                                                                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-2025-12-22T23:00:54.715+08:00  INFO 14422 --- [springbootTest] [           main] c.s.a.autoconfig.AsciiAutoConfig         : Spring Boot Application Started Successfully!
-2025-12-22T23:00:54.715+08:00  INFO 14422 --- [springbootTest] [           main] c.s.a.autoconfig.AsciiAutoConfig         : ==============================================
+2025-12-29T23:41:05.007+08:00  INFO 12307 --- [springbootTest] [           main] c.s.a.autoconfig.Ascii.AsciiAutoConfig   : ✅Ascii Art Word Printed Successfully!
+2025-12-29T23:41:05.007+08:00  INFO 12307 --- [springbootTest] [           main] c.s.a.autoconfig.Ascii.AsciiAutoConfig   : ==============================================
 
-
+2025-12-29T23:41:05.007+08:00  INFO 12307 --- [springbootTest] [           main] c.s.a.a.Buddha.BuddhaAutoConfig          : 
+                      _oo0oo_                     
+                     o8888888o                    
+                     88' . '88                    
+                     (| -_- |)                    
+                     0\  =  /0                    
+                   ___/`---'\___                  
+                 .' \\|     |// '.                
+                / \\|||  :  |||// \               
+               / _||||| -:- |||||_ \              
+              |   | \\\  -  /// |   |             
+              | \_|  ''\---/''  |_/ |             
+              \ .-\__  '-'  ___/-. /             
+            ___'. .'  /--.--\  `. .'___           
+          .'' '<  `.___\_<|>_/___.' >'  ''.       
+        | | :  `- \`.;`\ _ /`;.`/ - ` : | |       
+        \  \ `_.   \_ __\ /__ _/   .-` /  /       
+    =====`-.____`.___ \_____/___.-`___.-'=====    
+                      `=---='                     
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    
+              菩提本无树  明镜亦非台              
+              本来无BUG   何必常修改              
+                                                  
+==================================================
+     ┌──────────────────────────────────────┐
+     │             赛 博 真 经               │
+     ├──────────────────────────────────────┤
+     │         • 代码如禅，静心则明            │
+     │         • 需求如水，顺势而为            │
+     │         • Bug如尘，拂之即去            │
+     │         • 架构如山，稳固不移            │
+     │         • 屏前坐禅，代码修行            │
+     │         • 编译起飞，运行极乐            │
+     └──────────────────────────────────────┘
+2025-12-29T23:41:05.007+08:00  INFO 12307 --- [springbootTest] [           main] c.s.a.a.Buddha.BuddhaAutoConfig          : ✅Cyber Buddha Bless Your Code Successfully!
+2025-12-29T23:41:05.007+08:00  INFO 12307 --- [springbootTest] [           main] c.s.a.a.Buddha.BuddhaAutoConfig          : ==============================================
 ```
 
 
@@ -117,6 +164,7 @@ public class SpringbootTestApplication {
 | 1.0.3 | 以标准模式输出ascii艺术字 |
 | 1.0.4 | 新增两种艺术字字体，larry3d 和 doh |
 | 1.0.5 | 新增七种边框样式  |
+| 1.0.6 | 新增若干种字体颜色，新增@Buddha注解 |
 
 
 
