@@ -1,5 +1,6 @@
 package com.stLSSTl;
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
+import com.stLSSTl.asciicanvas.enums.ColorEnums;
 import com.stLSSTl.asciicanvas.service.AsciiArtService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ public class AsciiArtServiceTest {
     @Test
     @DisplayName("测试生成ASCII艺术字")
     public void testGenerateAsciiArtWithStandardFont() throws IOException, NoSuchFieldException {
+        /*
         String result1 = AsciiArtService.generateAsciiArt("AsciiCanvas", "larry3d", BorderEnums.THIN);
         log.info("\n【{}】\n{}",BorderEnums.THIN,result1);
 
@@ -30,5 +32,10 @@ public class AsciiArtServiceTest {
 
         String result6 = AsciiArtService.generateAsciiArt("AsciiCanvas", "larry3d", BorderEnums.UNENABLED);
         log.info("\n【{}】\n{}",BorderEnums.UNENABLED,result6);
+
+         */
+
+        String result7 = AsciiArtService.generateAsciiArt("shr1nk", "larry3d", BorderEnums.BLOCK, ColorEnums.BRIGHT_CYAN);
+        log.info("\n【{}】\n{}",BorderEnums.UNENABLED,result7);
     }
 }

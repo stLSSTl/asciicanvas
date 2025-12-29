@@ -3,6 +3,7 @@ package com.stLSSTl.asciicanvas.service;
 import com.github.lalyos.jfiglet.FigletFont;
 import com.stLSSTl.asciicanvas.common.BorderDecoration;
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
+import com.stLSSTl.asciicanvas.enums.ColorEnums;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,20 +30,16 @@ public class AsciiArtService {
      */
     public static String generateAsciiArt(String text,
                                           String font,
-                                          BorderEnums border) throws IOException, NoSuchFieldException {
+                                          BorderEnums border,
+                                          ColorEnums color) throws IOException, NoSuchFieldException {
 
         String fontName = FONT_MAP.getOrDefault(font.toLowerCase(), "standard");
         // 使用类路径资源加载字体文件
         InputStream fontStream = AsciiArtService.class.getClassLoader()
                 .getResourceAsStream("fonts/" + fontName);
-        if (fontStream != null) {
-            String asciiArt = FigletFont.convertOneLine(fontStream, text);
-            return decorateAsciiArt(asciiArt,border);
-        } else {
-            // 如果字体文件不存在，使用默认字体
-            String asciiArt = FigletFont.convertOneLine(text);
-            return decorateAsciiArt(asciiArt,border);
-        }
+        return fontStream != null
+                ? addColorToAsciiArt(decorateAsciiArt(FigletFont.convertOneLine(fontStream, text),border), color)
+                : addColorToAsciiArt(decorateAsciiArt(FigletFont.convertOneLine(text),border), color);
     }
 
     /**
@@ -181,5 +178,30 @@ public class AsciiArtService {
         result.append("└─────────────────────────────┘\n");
 
         return result.toString();
+    }
+
+    /**
+     * 为ASCII艺术字添加颜色
+     */
+    private static String addColorToAsciiArt(String asciiArt, ColorEnums colorEnums) {
+        String color = colorEnums.name();
+        if (colorEnums == ColorEnums.DEFAULT
+                ||color.isEmpty()
+                || color.trim().isEmpty()
+                || "DEFAULT".equalsIgnoreCase(color)) {
+            return asciiArt;
+        }
+
+        try {
+            ColorEnums colorEnum = ColorEnums.valueOf(color.toUpperCase());
+            if (colorEnum != ColorEnums.DEFAULT) {
+                return colorEnum.getCode() + asciiArt + "\u001B[0m"; // ANSI重置代码
+            }
+        } catch (IllegalArgumentException e) {
+            // 如果颜色名称无效，返回原字符串
+            System.err.println("无效的颜色名称: " + color + ", 使用默认颜色");
+        }
+
+        return asciiArt;
     }
 }

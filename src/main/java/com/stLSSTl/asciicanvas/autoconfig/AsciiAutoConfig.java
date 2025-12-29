@@ -1,6 +1,7 @@
 package com.stLSSTl.asciicanvas.autoconfig;
 import com.stLSSTl.asciicanvas.annotation.Ascii;
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
+import com.stLSSTl.asciicanvas.enums.ColorEnums;
 import com.stLSSTl.asciicanvas.service.AsciiArtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class AsciiAutoConfig {
         String content = asciiProperties.getContent();
         String font = asciiProperties.getFont();
         BorderEnums border = asciiProperties.getBorder();
+        ColorEnums color = asciiProperties.getColor();
 
         // 检查是否有@Ascii注解，如果有则覆盖配置
         //从Spring应用上下文中获取所有带有 @Ascii 注解的Bean，返回一个Map(spring容器Bean的名称 -> Bean实例对象)
@@ -49,18 +51,27 @@ public class AsciiAutoConfig {
             Class<?> beanClass = bean.getClass();
             Ascii asciiAnnotation = beanClass.getAnnotation(Ascii.class);
             if (asciiAnnotation != null) {
+                //如果注解中设置了 content 参数且不为空，则使用注解中的内容
                 if (!asciiAnnotation.content().isEmpty()) {
                     content = asciiAnnotation.content();
                 }
                 if (!asciiAnnotation.font().isEmpty()) {
                     font = asciiAnnotation.font();
                 }
+                // 对边框进行处理
+                if (asciiAnnotation.border() != BorderEnums.UNENABLED) {
+                    border = asciiAnnotation.border();
+                }
+                // 新增颜色处理
+                if (asciiAnnotation.color() != ColorEnums.DEFAULT) {
+                    color = asciiAnnotation.color();
+                }
                 break;
             }
         }
 
         // 使用静态方法生成ASCII艺术字
-        String asciiArt = AsciiArtService.generateAsciiArt(content, font, border);
+        String asciiArt = AsciiArtService.generateAsciiArt(content, font, border,color);
         log.info("\n{}", asciiArt);
         log.info("✅Spring Boot Application Started Successfully!");
         log.info("==============================================\n");

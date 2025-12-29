@@ -1,6 +1,7 @@
 package com.stLSSTl.asciicanvas.autoconfig;
 
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
+import com.stLSSTl.asciicanvas.enums.ColorEnums;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -38,10 +39,10 @@ public class AsciiProperties {
     private boolean enabled = true;
 
     /**
-     * 颜色（未来扩展用）
+     * 颜色
      */
     @Getter
     @Setter
-    private String color = "";
+    private ColorEnums color = ColorEnums.DEFAULT ;// 默认不使用颜色
 
 }

@@ -1,6 +1,7 @@
 package com.stLSSTl.asciicanvas.annotation;
 
 import com.stLSSTl.asciicanvas.enums.BorderEnums;
+import com.stLSSTl.asciicanvas.enums.ColorEnums;
 import org.springframework.context.annotation.Import;
 import com.stLSSTl.asciicanvas.autoconfig.AsciiAutoConfig;
 
@@ -30,4 +31,9 @@ public @interface Ascii {
      * 是否启用，默认为true
      */
     boolean enabled() default true;
+
+    /**
+     * 颜色，默认为默认颜色
+     */
+    ColorEnums color() default ColorEnums.DEFAULT;
 }
